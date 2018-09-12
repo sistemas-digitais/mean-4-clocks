@@ -1,2 +1,6 @@
-# register-chain
-Entity description for a register chaiin
+# mean-4-clocks
+Faulty model designed to calculate the mean value over 4 clock periods
+
+1. Implement a testbench
+1. Find the errors
+1. Correct the errors
