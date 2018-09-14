@@ -17,7 +17,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
 
 entity mean_4_clocks is
     generic (
@@ -25,6 +25,7 @@ entity mean_4_clocks is
     );
     port (
         CLK     : in    std_logic;
+        RESET   : in    std_logic;
         INPUT   : in    std_logic_vector(W - 1 downto 0);
         OUTPUT  : out   std_logic_vector(W - 1 downto 0)
     );
@@ -38,21 +39,25 @@ end mean_4_clocks;
 
 architecture arch of mean_4_clocks is
 begin
-    process(CLK) is
-        variable var1 : std_logic_vector(W - 1 downto 0);
-        variable var2 : std_logic_vector(W - 1 downto 0);
-        variable var3 : std_logic_vector(W - 1 downto 0);
-        variable var4 : std_logic_vector(W - 1 downto 0);
+    process(CLK, RESET) is
+        variable var1 : unsigned(W - 1 downto 0);
+        variable var2 : unsigned(W - 1 downto 0);
+        variable var3 : unsigned(W - 1 downto 0);
+        variable var4 : unsigned(W - 1 downto 0);
     begin
-        
-        if (rising_edge(CLK)) then
-            var1 := "00" & INPUT(W-1 downto 2);
+        if (RESET = '1') then
+			var1 := to_unsigned(0,W);
+			var2 := to_unsigned(0,W);
+			var3 := to_unsigned(0,W);
+			var4 := to_unsigned(0,W);
+        elsif (rising_edge(CLK)) then
+            var1 := unsigned("00" & INPUT(W-1 downto 2));
             var2 := var1;
             var3 := var2;
             var4 := var3;
         end if;
         
-        OUTPUT <= var1 + var2 + var3 + var4;
+        OUTPUT <= std_logic_vector(var1 + var2 + var3 + var4);
     end process;
     
 end arch;
