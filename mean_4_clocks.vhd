@@ -46,10 +46,10 @@ begin
         variable var4 : unsigned(W - 1 downto 0);
     begin
         if (RESET = '1') then
-			var1 := to_unsigned(0,W);
-			var2 := to_unsigned(0,W);
-			var3 := to_unsigned(0,W);
-			var4 := to_unsigned(0,W);
+            var1 := to_unsigned(0,W);
+            var2 := to_unsigned(0,W);
+            var3 := to_unsigned(0,W);
+            var4 := to_unsigned(0,W);
         elsif (rising_edge(CLK)) then
             var1 := unsigned("00" & INPUT(W-1 downto 2));
             var2 := var1;
